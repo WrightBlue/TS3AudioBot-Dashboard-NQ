@@ -35,7 +35,7 @@ cd /var/www/html
 ```
 
 ```bash
-wget https://github.com/WrightProjects/TS3AudioBot-Dashboard-NQ/archive/master.zip
+wget https://github.com/WrightProjects/TS3AudioBot-Dashboard/archive/master.zip
 ```
 
 ```bash
