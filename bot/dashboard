@@ -1,0 +1,18 @@
+#!/bin/bash
+
+RED='\033[0;31m'
+GREEN='\033[0;32m'
+WHITE='\033[1;37m'
+RESET='\033[0m'
+
+if [[ $1 == 'stop' ]]; then
+        clear
+        screen -S DashBoard -X quit
+        echo -e "${WHITE}[>] Bot zostal ${RED}wylaczony${WHITE}!${RESET}"
+elif [[ $1 == 'start' ]]; then
+        clear
+        screen -AdmS DashBoard php core.php
+        echo -e "${WHITE}[>] Bot zostal ${GREEN}wlaczony${WHITE}!${RESET}"
+else
+        echo -e "${WHITE}[>] ./dashBoard [start|stop]${RESET}";
+fi
