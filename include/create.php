@@ -11,6 +11,9 @@
 		$tempCache['channel'] = $_POST['channel'];
 		$tempCache['server'] = $_POST['server'];
 		$tempCache['group'] = $_POST['group'];
+		$tempCache['avatar'] = $_POST['avatar'];
+		$tempCache['leave_message'] = $_POST['leave_message'];
+		$tempCache['music_message'] = $_POST['music_message'];
 		$dashboard->setTempCache($_POST['name'], 'create', $tempCache);
 		$dashboard->setTempCache($_POST['name'], 'start', $tempCache);
 		$_SESSION['alert'] = array('message' => 'Storzono oraz uruchomiono bota <b>'.$tempCache['bot_name'].'</b>!', 'type' => 'success');
@@ -33,15 +36,21 @@
 							<select class="form-control selectpicker wow slideInLeft" data-wow-duration="1400ms" data-style="btn btn-link" name="id"><?php echo $dashboard->getOptionList(); ?></select><br>
 							<input type="text" class="form-control wow slideInLeft" data-wow-duration="1500ms" name="group" maxlength="10" pattern="[0-9]{0,10}" title="Tylko liczby!" placeholder=" Id grupy" required><br>
 							<input type="text" class="form-control wow slideInLeft" data-wow-duration="1600ms" name="channel" maxlength="10" pattern="[0-9]{0,10}" title="Tylko liczby!" placeholder=" Id kanału" required><br>
-							<button class="btn btn-info btn-fill btn-block wow slideInLeft" data-wow-duration="1700ms">Stwórz bota</button>
+							<input type="text" class="form-control wow slideInLeft" data-wow-duration="1700ms" name="avatar" placeholder=" Avatar"><br>
+							<input type="text" class="form-control wow slideInLeft" data-wow-duration="1800ms" name="leave_message" placeholder=" Komunikat o rozłączeniu" required><br>
+							<input type="text" class="form-control wow slideInLeft" data-wow-duration="1900ms" name="music_message" placeholder=" Komunikat o muzyce"><br>
+							<button class="btn btn-info btn-fill btn-block">Stwórz bota</button>
 						</form>
-						<hr class="wow slideInLeft" data-wow-duration="1800ms">
-						     <small>*Nazwa - pseudonim które bedzie miał bot</small><br>
-						     <small>*Adres serwera (ipv4 lub twoja-domena.pl) - Nazwa mowi za siebie, polecam jednak uzywac ipv4.</small><br>
-						     <small>*Id bota - instancja ktora bedzie uruchamiana (Min. 1 - Max. 128)</small><br>
-						     <small>*Id grupy - grupa która bedzie miała dostęp do komend bota (Np. grupa gildyjna)</small><br>
-						     <small>*Id kanału - kanał na który bedzie wchodzic bot jak np. dostanie dropa</small>
-						<hr class="wow slideInLeft" data-wow-duration="1800ms">
+						<hr class="wow slideInLeft" data-wow-duration="2100ms">
+						     <small>[*] Nazwa - pseudonim które bedzie miał bot</small><br>
+						     <small>[*] Adres serwera (ipv4 lub twoja-domena.pl) - Nazwa mowi za siebie, polecam jednak uzywac ipv4.</small><br>
+						     <small>[*] Id bota - instancja ktora bedzie uruchamiana (Min. 1 - Max. 128)</small><br>
+						     <small>[*] Id grupy - grupa która bedzie miała dostęp do komend bota (Np. grupa gildyjna)</small><br>
+						     <small>[*] Id kanału - kanał na który bedzie wchodzic bot jak np. dostanie dropa</small><br>
+						     <small>[*] Avatar - Link lub ścieżka do avatara, który będzie miał bot</small><br>
+						     <small>[*] Komunikat o rozłączeniu - Wiadomości która bedzie widoczna gdy bot zostanie wyłaczony. Przykład: "<23:33:37> "TS3AudioBot" rozłączono (Wright <3)"</small><br>
+							<small>[*] Komunikat o muzyce -  Bot na kanale bedzie wysyłać wiadomość wraz z linkiem oraz nazwa aktualnie granej muzyki. Dostepne zmienne: <b>%SONG</b></b></small>
+						<hr class="wow slideInLeft" data-wow-duration="2200ms">
 					</div>
 				</div>
 			</div>

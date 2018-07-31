@@ -17,10 +17,11 @@
 		}
 	}
 	$dashboard = new dashboard();
+	$db = $dashboard->getMySQL($config);
 	while (true) {
 		foreach ($cache['functions'] as $function => $name) {
 			if ($cache['functions'][$function]['next_update'] < time()) {
-				$function::run($dashboard->getMySQL($config), $config, $dashboard);
+				$function::run($db, $config, $dashboard);
 				$cache['functions'][$function]['next_update'] = time() + $cache['functions'][$function]['interval'];
 			}
 		}

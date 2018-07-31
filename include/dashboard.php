@@ -24,6 +24,9 @@
 			$tempCache['channel'] = $_POST['channel'];
 			$tempCache['server'] = $_POST['server'];
 			$tempCache['group'] = $_POST['group'];
+			$tempCache['avatar'] = $_POST['avatar'];
+			$tempCache['leave_message'] = $_POST['leave_message'];
+			$tempCache['music_message'] = $_POST['music_message'];
 			$dashboard->setTempCache($_POST['name'], 'edit', $tempCache);
 			$_SESSION['alert'] = array('message' => 'Edytowano bota o nazwie <b>'.$tempCache['bot_name'].'</b>!', 'type' => 'success');
 			header('Location: ?dashboard');
@@ -90,8 +93,16 @@
 								<input type="text" class="form-control" id="group" name="group">
 							</div>
 							<div class="form-group">
-								<label for="message-text" class="col-form-label">Kanał:</label>
-								<input type="text" class="form-control" id="channel" name="channel">
+								<label for="message-text" class="col-form-label">Avatar:</label>
+								<input type="text" class="form-control" id="avatar" name="avatar">
+							</div>
+							<div class="form-group">
+								<label for="message-text" class="col-form-label">Komunikat o rozłączeniu:</label>
+								<input type="text" class="form-control" id="leave_message" name="leave_message">
+							</div>
+							<div class="form-group">
+								<label for="message-text" class="col-form-label">Komunikat o muzyce:</label>
+								<input type="text" class="form-control" id="music_message" name="music_message">
 							</div>
 						</div>
 						<div class="modal-footer">
