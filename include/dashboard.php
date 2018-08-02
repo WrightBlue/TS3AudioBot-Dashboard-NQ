@@ -89,6 +89,10 @@
 								<input type="text" class="form-control" id="server" name="server">
 							</div>
 							<div class="form-group">
+								<label for="message-text" class="col-form-label">Kanał:</label>
+								<input type="text" class="form-control" id="channel" name="channel">
+							</div>
+							<div class="form-group">
 								<label for="message-text" class="col-form-label">Grupa:</label>
 								<input type="text" class="form-control" id="group" name="group">
 							</div>
