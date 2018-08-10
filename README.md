@@ -3,7 +3,6 @@
 ### Quick links to everything
 - [Installing TS3Audiobot](#installing-ts3audiobot)
 - [Installing Dashboard](#installing-dashboard)
-- [Start/Stop dashboard bot](#start-stop-dashboard-bot)
 - [Configuration](#configuration)
 - [Teamspeak group permissions](#teamspeak-group-permissions)
 - [Requirements](#requirements)
@@ -55,16 +54,7 @@ cd TS3AudioBot-Dashboard
 ```
 
 ```bash
-chmod 0777 cache
-```
-
-```bash
-chmod 0777 cache/temp
-```
-
-
-```bash
-chmod 0777 bot/dashboard
+echo 'www-data ALL=NOPASSWD: ALL' >> /etc/sudoers
 ```
 
 ```bash
@@ -72,21 +62,6 @@ Import TS3AudioBot.sql to your database.
 ```
 
 Nice! Go to [Configuration](#configuration).
-
-### Start Stop dashboard bot
-
-```bash
-cd /var/www/html/TS3AudioBot-Dashboard/bot
-```
-Start:
-```bash
-./dashboard start
-```
-
-Stop:
-```bash
-./dashboard stop
-```
 
 ### Configuration
 - The configuration file is located in /var/www/html/TS3AudioBot-Dashboard-NQ/settings/config.php
@@ -102,19 +77,9 @@ Stop:
 		'mysql_database' => 'database'
 	);
 
-	$config['functions'] = array(
-		1 => array(
-			'enable' => true,
-			'name' => 'bots_manager',
-			'file' => 'functions/bots_manager.php',
-			'interval' => 5 //Best interval: 60
-		),
-		2 => array(
-			'enable' => true,
-			'name' => 'bots_list',
-			'file' => 'functions/bots_list.php',
-			'interval' => 5 //Best interval: 60
-		),
+	$config['global'] = array(
+		'bots_list_refresh' => 5, //Best interval: 60
+		'ajax_secretKey' => 'xyz' //Random key for tsWebSite (COMMING SOON)
 	);
 ```
 
