@@ -1,10 +1,12 @@
 <footer class="footer">
 	<div class="container-fluid">
 		<nav class="copyright float-left">
-			Front-end made with <i class="material-icons">favorite</i> by <a href="https://www.creative-tim.com" target="_blank">Creative Tim</a>
+			Front-end made with <i class="material-icons">favorite</i> by <a href="https://www.creative-tim.com"
+			                                                                 target="_blank">Creative Tim</a>
 		</nav>
 		<div class="copyright float-right">
-			Back-end made with <i class="material-icons">favorite</i> by <a href="https://wright.pogadajtu.pl" target="_blank">Wright</a>
+			Back-end made with <i class="material-icons">favorite</i> by <a href="https://wright.pogadajtu.pl"
+			                                                                target="_blank">Wright</a>
 		</div>
 	</div>
 </footer>
@@ -23,10 +25,10 @@
 	new WOW().init();
 
 	<?php
-		if (isset($_SESSION['alert'])) {
-			echo '$.notify({ icon: "notifications", message: "'.$_SESSION['alert']['message'].'" }, { type: "'.$_SESSION['alert']['type'].'", timer: 1000 });';
-			unset($_SESSION['alert']);
-		}
+	if (isset($_SESSION['alert'])) {
+		echo '$.notify({ icon: "notifications", message: "' . $_SESSION['alert']['message'] . '" }, { type: "' . $_SESSION['alert']['type'] . '", timer: 1000 });';
+		unset($_SESSION['alert']);
+	}
 	?>
 
 	<?php if ($_SESSION['PAGE_REQUEST'] == 'logs') { ?>
@@ -45,82 +47,63 @@
 		modal.find('#channel').val(button.data('bot_channel'));
 		modal.find('#id').val(button.data('bot_id'));
 	});
-	<?php } ?>
 
-	<?php if ($_SESSION['PAGE_REQUEST'] == 'dashboard') { ?>
-	function updateData() {
+	function updateData()
+	{
 		$.ajax({
-			type        :   'GET',
-			url         :   'cache/bots_list.wright',
-			async       :   true,
-			dataType    :   'json',
-			success     :   function(result) {
+			url: 'ajax.php', type: 'POST', data: {request: 'bots'}, success: function (result) {
 				var tr = '';
 				$("#ajax").empty();
-				$.each(result, function(index, val){
-					tr += `<tr style="background-color: ${val.color};"><td class="text-center">${val.id}</td><td>${val.name}</td><td><button type="button" class="btn btn-success btn-round btn-sm" name="start" id="start" data-bot_id="${val.id}"><i class="material-icons">power_settings_new</i></button><button type="button" class="btn btn-danger btn-round btn-sm" name="stop" id="stop" data-bot_id="${val.id}"><i class="material-icons">cancel</i></button><button type="button" class="btn btn-warning btn-round btn-sm" name="remove" id="remove" data-bot_id="${val.id}""><i class="material-icons">delete_forever</i></button><button type="button" class="btn btn-info btn-round btn-sm" data-toggle="modal" data-target="#EditBot" data-bot_id="${val.id}" data-bot_name="${val.name}" data-bot_server="${val.server}" data-bot_group="${val.group}" data-bot_channel="${val.channel}""><i class="material-icons">build</i></button></td><td>${val.status}</td></tr>`;
+				$.each(result.message, function (index, val) {
+					tr += `<tr style="background-color: ${val.color};"><td class="text-center">${val.id}</td><td>${val.name}</td><td><button type="button" class="btn btn-success btn-round btn-sm" name="start" id="start" data-bot_id="${val.id}" rel="tooltip" title="Włącz bota"><i class="material-icons">power_settings_new</i></button><button type="button" class="btn btn-danger btn-round btn-sm" name="stop" id="stop" data-bot_id="${val.id}" rel="tooltip" title="Wyłącz bota"><i class="material-icons">cancel</i></button><button type="button" class="btn btn-warning btn-round btn-sm" name="delete" id="delete" data-bot_id="${val.id}" rel="tooltip" title="Usuń bota"><i class="material-icons">delete_forever</i></button><button type="button" class="btn btn-info btn-round btn-sm" data-toggle="modal" data-target="#EditBot" data-bot_id="${val.id}" data-bot_name="${val.name}" data-bot_server="${val.server}" data-bot_group="${val.group}" data-bot_channel="${val.channel}" rel="tooltip" title="Edytuj bota"><i class="material-icons">build</i></button></td><td>${val.status}</td></tr>`;
 				});
 				$('#ajax').append(tr);
 			},
 		});
 	};
 
-	$(document).on('click', '#start',function(){
-		var id = $(this).data('bot_id');
+	$(document).on('click', '#start', function () {
 		$.ajax({
-			url        : '?dashboard&option=1',
-			type       : 'post',
-			data       : {
-				start: id
-			},
-			success    : function(data) {
+			url: 'ajax.php', type: 'post', data: {
+				request: 'start', botId: $(this).data('bot_id')
+			}, success: function (data) {
 				$.notify({
-					icon    : "notifications",
-					message : "Włączono bota ID " + id + "!"
+					icon: "notifications", message: data.message
 				}, {
-					type    : "success",
-					timer   : 1000
+					type: data.type, timer: 1000
 				});
 			}
 		});
 	});
 
-	$(document).on('click', '#stop',function(){
-		var id = $(this).data('bot_id');
+	$(document).on('click', '#stop', function () {
 		$.ajax({
-			url        : '?dashboard&option=1',
-			type       : 'post',
-			data       : {
-				stop: id
-			},
-			success    : function(data) {
+			url: 'ajax.php', type: 'post', data: {
+				request: 'stop', botId: $(this).data('bot_id')
+			}, success: function (data) {
 				$.notify({
-					icon    : "notifications",
-					message : "Wyłączono bota ID " + id + "!"
+					icon: "notifications", message: data.message
 				}, {
-					type    : "danger",
-					timer   : 1000
+					type: data.type, timer: 1000
 				});
 			}
 		});
 	});
 
-	$(document).on('click', '#remove',function(){
-		var id = $(this).data('bot_id');
+	$(document).on('click', '#delete', function () {
 		$.ajax({
-			url        : '?dashboard&option=1',
-			type       : 'post',
-			data       : {
-				remove:  1,
-				bot_id:  id
-			},
-			success    : function(data) {
+			url: 'ajax.php', type: 'post', data: {
+				request: 'stop', botId: $(this).data('bot_id')
+			}
+		});
+		$.ajax({
+			url: 'ajax.php', type: 'post', data: {
+				request: "delete", botId: $(this).data('bot_id')
+			}, success: function (data) {
 				$.notify({
-					icon    : "notifications",
-					message : "Usunięto bota ID " + id + "!"
+					icon: "notifications", message: data.message
 				}, {
-					type    : "danger",
-					timer   : 1000
+					type: data.type, timer: 1000
 				});
 			}
 		});
@@ -129,21 +112,79 @@
 	var counter = 0;
 	setInterval(function () {
 		if (counter == 0) {
-			counter = 61;
+			counter = <?php echo $config['global']['bots_list_refresh']; ?>;
 			updateData();
-			$.notify({
-				icon: "notifications",
-				message: "Odświeżono liste botów!"
-			}, {
-				type: "info",
-				timer: 1000
-			});
 		}
-		counter = counter-1;
+		counter = counter - 1;
 		$("#timer").html(counter);
 	}, 1000);
 	<?php } ?>
 
+	<?php if ($_SESSION['PAGE_REQUEST'] == 'create') { ?>
+	var lastId = 0;
+	$(document).on('click', '#create', function () {
+		if (document.getElementById('id').value == '[!] Id bota' || lastId == document.getElementById('id').value) {
+			$.notify({
+				icon: "notifications", message: "Wybierz poprawne ID bota!"
+			}, {
+				type: "danger", timer: 1000
+			});
+		} else {
+			$.ajax({
+				url: 'ajax.php', type: 'post', data: {
+					request: "create",
+					botId: document.getElementById('id').value,
+					name: document.getElementById('name').value,
+					channel: document.getElementById('channel').value,
+					server: document.getElementById('server').value,
+					group: document.getElementById('group').value,
+					leave_message: document.getElementById('leave_message').value,
+					avatar: document.getElementById('avatar').value,
+					music_message: document.getElementById('music_message').value
+				}, success: function (data) {
+					lastId = document.getElementById('id').value;
+					$.notify({
+						icon: "notifications", message: data.message
+					}, {
+						type: data.type, timer: 1000
+					});
+				}
+			});
+		}
+	});
+	<?php } ?>
+	<?php if ($_SESSION['PAGE_REQUEST'] == 'dashboard') { ?>
+	$(document).on('click', '#create', function () {
+		if (document.getElementById('id').value == '[!] Id bota') {
+			$.notify({
+				icon: "notifications", message: "Wybierz poprawne ID bota!"
+			}, {
+				type: "danger", timer: 1000
+			});
+		} else {
+			$.ajax({
+				url: 'ajax.php', type: 'post', data: {
+					request: "create",
+					botId: document.getElementById('id').value,
+					name: document.getElementById('name').value,
+					channel: document.getElementById('channel').value,
+					server: document.getElementById('server').value,
+					group: document.getElementById('group').value,
+					leave_message: document.getElementById('leave_message').value,
+					avatar: document.getElementById('avatar').value,
+					music_message: document.getElementById('music_message').value
+				}, success: function (data) {
+					lastId = document.getElementById('id').value;
+					$.notify({
+						icon: "notifications", message: data.message
+					}, {
+						type: data.type, timer: 1000
+					});
+				}
+			});
+		}
+	});
+	<?php } ?>
 </script>
 </body>
 </html>

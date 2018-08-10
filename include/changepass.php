@@ -6,11 +6,15 @@
 	}
 	if (isset($_GET['option'])) {
 		if (md5($_POST['old']) == $_SESSION['user_password']) {
-			$tempCache['old'] = htmlentities($_POST['old'], ENT_QUOTES, "UTF-8");
-			$tempCache['new'] = htmlentities($_POST['new'], ENT_QUOTES, "UTF-8");
+			$socketchangepassword = array(
+				'event' => 'changepassword',
+				'old' => htmlentities($_POST['old'], ENT_QUOTES, "UTF-8"),
+				'new' => htmlentities($_POST['new'], ENT_QUOTES, "UTF-8"),
+				'user_name' => htmlentities($_SESSION['user_name'], ENT_QUOTES, "UTF-8")
+			);
+			$socket->send(json_encode($socketchangepassword));
 			$_SESSION['user_password'] = md5($_POST['new']);
-			$dashboard->setTempCache($_POST['old'], 'changepass', $tempCache);
-			$_SESSION['alert'] = array('message' => 'Poprawnie zmieniono hasło dla <b>'.$_SESSION['user_name'].'</b>!', 'type' => 'success');
+			$_SESSION['alert'] = array('message' => 'Poprawnie zmieniono hasło dla <b>' . $_SESSION['user_name'] . '</b>!', 'type' => 'success');
 			header('Location: ?changepass');
 			exit();
 		} else {
@@ -30,9 +34,15 @@
 					</div>
 					<div class="card-body">
 						<form method="post" action="?changepass&option=1" autocomplete="off">
-							<input type="text" class="form-control wow slideInLeft" data-wow-duration="1200ms" name="old" minlength="6" maxlength="32" placeholder=" Obecne hasło" required><br>
-							<input type="text" class="form-control wow slideInLeft" data-wow-duration="1300ms" name="new" minlength="6" maxlength="32" placeholder=" Nowe hasło" required><br>
-							<button class="btn btn-info btn-fill btn-block wow slideInLeft" data-wow-duration="1400ms">Zmień hasło</button>
+							<input type="text" class="form-control wow slideInLeft" data-wow-duration="1200ms"
+							       name="old" minlength="6" maxlength="32" placeholder=" Obecne hasło"
+							       required><br>
+							<input type="text" class="form-control wow slideInLeft" data-wow-duration="1300ms"
+							       name="new" minlength="6" maxlength="32" placeholder=" Nowe hasło"
+							       required><br>
+							<button class="btn btn-info btn-fill btn-block wow slideInLeft"
+							        data-wow-duration="1400ms">Zmień hasło
+							</button>
 						</form>
 					</div>
 				</div>

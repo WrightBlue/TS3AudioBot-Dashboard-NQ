@@ -4,7 +4,7 @@
 			$login = htmlentities($_POST['login'], ENT_QUOTES, "UTF-8");
 			$password = htmlentities($_POST['password'], ENT_QUOTES, "UTF-8");
 			$db = $dashboard->getMySQL($config);
-			$result = $db->query("SELECT * FROM `dashboard_auth` WHERE login='".$login."' AND password='".$password."'");
+			$result = $db->query("SELECT * FROM `dashboard_auth` WHERE login='" . $login . "' AND password='" . $password . "'");
 			if ($result->rowCount() != 0) {
 				$_SESSION['user_online'] = true;
 				$_SESSION['user_name'] = $login;
@@ -22,6 +22,8 @@
 			header('Location: ?login');
 			exit();
 		}
+	} else {
+		$dashboard->getMySQL($config, true);
 	}
 ?>
 <div class="content">
@@ -51,7 +53,8 @@
 											<i class="material-icons">lock_open</i>
 										</span>
 									</div>
-					                     <input type="password" name="password" class="form-control" placeholder="Hasło">
+					                     <input type="password" name="password" class="form-control"
+					                            placeholder="Hasło">
 					               </div>
 							</span>
 						</div>

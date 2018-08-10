@@ -7,17 +7,8 @@
 		'mysql_database' => 'database'
 	);
 
-	$config['functions'] = array(
-		1 => array(
-			'enable' => true,
-			'name' => 'bots_manager',
-			'file' => 'functions/bots_manager.php',
-			'interval' => 5 //Best interval: 60
-		),
-		2 => array(
-			'enable' => true,
-			'name' => 'bots_list',
-			'file' => 'functions/bots_list.php',
-			'interval' => 5 //Best interval: 60
-		),
+	$config['global'] = array(
+		'bots_list_refresh' => 5, //Best interval: 60
+		'ajax_secretKey' => 'XkhFVm8M48x79CKr' //Random key for tsWebSite (COMMING SOON)
+		//'lang' => 'PL' //COMMING SOON
 	);

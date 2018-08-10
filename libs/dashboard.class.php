@@ -2,58 +2,34 @@
 
 	class dashboard
 	{
-
-		function getMySQL($config)
+		function getMySQL($config, $alert = false)
 		{
-			$db = null;
+			$db = false;
 			try {
 				$db = new PDO('mysql:host=' . $config['mysql']['mysql_address'] . ';dbname=' . $config['mysql']['mysql_database'], $config['mysql']['mysql_login'], $config['mysql']['mysql_password'], array(PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES utf8"));
 				$db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 			} catch (PDOException $ex) {
-				die('Nie udalo sie polaczyc z baza danych!' . PHP_EOL . 'Error code: ' . $ex->getCode() . PHP_EOL . 'Error message: ' . $ex->getMessage());
+				if ($alert) {
+					$_SESSION['alert'] = array('message' => '<br><b>Nie udalo sie polaczyc z baza danych!</b><br>' . '<br>Error code: ' . $ex->getCode() . '<br>Error message: ' . $ex->getMessage(), 'type' => 'danger');
+				} else {
+					die('Nie udalo sie polaczyc z baza danych!' . PHP_EOL . 'Error code: ' . $ex->getCode() . PHP_EOL . 'Error message: ' . $ex->getMessage() . PHP_EOL);
+				}
 			}
 			return $db;
 		}
-
-		function setTempCache($file, $type, $value)
+		
+		function getOptionList($config)
 		{
-			file_put_contents(__DIR__ . '/../cache/temp/' . $file . '_' . $type . '.temp', json_encode($value));
-		}
-
-		function setCache($file, $value, $json)
-		{
-			if ($json) {
-				file_put_contents(__DIR__ . '/../cache/' . $file . '.wright', json_encode($value));
-			} else {
-				file_put_contents(__DIR__ . '/../cache/' . $file . '.wright', $value);
-			}
-		}
-
-		function getCache($file, $json)
-		{
-			$cache = '';
-			if (file_exists(__DIR__ . '/../cache/' . $file . '.wright')) {
-				if ($json) {
-					$cache = json_decode(file_get_contents(__DIR__ . '/../cache/' . $file . '.wright'));
-				} else {
-					$cache = file_get_contents(__DIR__ . '/../cache/' . $file . '.wright');
-				}
-			}
-			return $cache;
-		}
-
-		function getOptionList()
-		{
-			$cache = self::getCache('bots_list', true);
+			$bots = self::getMySQL($config)->query("SELECT * FROM `dashboard_bots`");
 			$listCreated = array();
-			foreach ($cache as $bot) {
-				$listCreated[] = $bot->id;
+			foreach ($bots as $bot) {
+				$listCreated[] = $bot['id'];
 			}
 			$result = array();
-			$result .= '<option selected disabled>Id bota</option>';
+			$result .= '<option selected disabled>[!] Id bota</option>';
 			for ($i = 1; $i <= 128; $i++) {
 				if (!in_array($i, $listCreated)) {
-					$result .= '<option value="'.$i.'">'.$i.'</option>';
+					$result .= '<option value="' . $i . '">' . $i . '</option>';
 				}
 			}
 			return $result;
