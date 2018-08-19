@@ -36,7 +36,7 @@
 						<p>Stwórz bota</p>
 					</a>
 				</li>
-				<li class="nav-item <?php if ($_GET['type'] == 'TS3AudioBot')
+				<li class="nav-item <?php if (isset($_GET['type']) && $_GET['type'] == 'TS3AudioBot')
 					echo 'active'; ?>">
 					<a class="nav-link" href="?logs&type=TS3AudioBot">
 						<i class="material-icons">event_note</i>
