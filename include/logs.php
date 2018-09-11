@@ -1,13 +1,11 @@
 <?php
-	if (!$_SESSION['user_online']) {
+	if (empty($_SESSION['user_online'])) {
 		$_SESSION['alert'] = array('message' => 'Najpierw musisz sie zalogować!', 'type' => 'danger');
-		header('Location: ?login');
-		exit();
+		exit(header('Location: ?login'));
 	}
 	if ($_GET['type'] == 'TS3AudioBot') {
 		if (isset($_POST['day'])) {
-			header('Location: ?logs&type=TS3AudioBot&day=' . $_POST['day']);
-			exit();
+			exit(header('Location: ?logs&type=TS3AudioBot&day=' . $_POST['day']));
 		}
 		?>
 		<div class="content">

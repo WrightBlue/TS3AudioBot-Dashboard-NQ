@@ -1,9 +1,8 @@
 <?php
-	if ($_SESSION['user_online']) {
+	if (empty($_SESSION['user_online'])) {
 		session_unset();
 		$_SESSION['alert'] = array('message' => 'Wylogowano pomyślnie!', 'type' => 'success');
-		header('Location: ?login');
-		exit();
+		exit(header('Location: ?login'));
 	}
 
 	header('Location: ?login');

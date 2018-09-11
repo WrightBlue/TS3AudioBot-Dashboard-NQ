@@ -36,17 +36,10 @@
 						<p>Stwórz bota</p>
 					</a>
 				</li>
-				<li class="nav-item <?php if (isset($_GET['type']) && $_GET['type'] == 'TS3AudioBot')
-					echo 'active'; ?>">
+				<li class="nav-item <?php if (isset($_GET['type'])) echo 'active'; ?>">
 					<a class="nav-link" href="?logs&type=TS3AudioBot">
 						<i class="material-icons">event_note</i>
 						<p>Logi TS3AudioBot</p>
-					</a>
-				</li>
-				<li class="nav-item <?php echo(isset($_SESSION['PAGE_REQUEST']) && $_SESSION['PAGE_REQUEST'] == 'changepass' ? 'active' : ''); ?>">
-					<a class="nav-link" href="?changepass">
-						<i class="material-icons">create</i>
-						<p>Zmiana hasła</p>
 					</a>
 				</li>
 				<li class="nav-item <?php echo(isset($_SESSION['PAGE_REQUEST']) && $_SESSION['PAGE_REQUEST'] == 'donate' ? 'active' : ''); ?>">
@@ -62,7 +55,7 @@
 		<nav class="navbar navbar-expand-lg navbar-transparent navbar-absolute fixed-top wow slideInDown"
 		     data-wow-duration="1s">
 			<div class="container-fluid">
-				<?php if ($_SESSION['user_online']) { ?>
+				<?php if (empty($_SESSION['user_online'])) {?>
 					<div class="navbar-wrapper">
 						<div class="navbar-brand">Zalogowany jako: <b><?php echo $_SESSION['user_name']; ?></b>
 						</div>

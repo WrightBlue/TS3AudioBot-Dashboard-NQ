@@ -8,7 +8,5 @@
 	);
 
 	$config['global'] = array(
-		'bots_list_refresh' => 5, //Best interval: 60
-		'ajax_secretKey' => 'XkhFVm8M48x79CKr' //Random key for tsWebSite (COMMING SOON)
-		//'lang' => 'PL' //COMMING SOON
+		'bots_list_refresh' => 5 //Best interval: 60
 	);

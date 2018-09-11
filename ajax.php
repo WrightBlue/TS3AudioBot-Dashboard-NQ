@@ -4,24 +4,16 @@
 
 	header('Content-Type: application/json');
 
-	$auth = false;
-
 	require_once __DIR__ . '/settings/config.php';
 
-	if ($_SESSION['user_online'] == true) {
-		$auth = true;
-	} else if ($_GET['secretKey'] == $config['global']['ajax_secretKey']) {
-		$auth = true;
-	}
-
-	if ($auth) {
+	if (!empty($_SESSION['user_online'])) {
 		require_once __DIR__ . '/libs/dashboard.class.php';
 		$dashboard = new dashboard();
 		if ($_POST['request'] == 'start') {
 			$botId = $_POST['botId'];
 			if (isset($botId)) {
-				if (preg_replace('/\D/', '', shell_exec("sudo screen -S TS3AudioBot" . $botId . " -Q select . ; echo $?")) != '0') {
-					shell_exec("sudo screen -AdmS TS3AudioBot" . $botId . " mono /home/TS3AudioBot/TS3AudioBot.exe -c /home/TS3AudioBot/config/" . $botId . ".cfg");
+				if (preg_replace('/\D/', '', shell_exec("sudo screen -S TS3AudioBot" . base64_encode($botId) . " -Q select . ; echo $?")) != '0') {
+					shell_exec("sudo screen -AdmS TS3AudioBot" . base64_encode($botId) . " mono /home/TS3AudioBot/TS3AudioBot.exe -c /home/TS3AudioBot/config/" . $botId . ".cfg");
 					printJson('success', 'Wlaczono bota o id ' . $botId . '!');
 				} else {
 					printJson('warning', 'Proba wlaczenia bota id ' . $botId . ' nie powiodla sie (Bot jest juz wlaczony)');
@@ -32,10 +24,10 @@
 		} else if ($_POST['request'] == 'stop') {
 			$botId = $_POST['botId'];
 			if (isset($botId)) {
-				if (preg_replace('/\D/', '', shell_exec("sudo screen -S TS3AudioBot" . $botId . " -Q select . ; echo $?")) != '0') {
+				if (preg_replace('/\D/', '', shell_exec("sudo screen -S TS3AudioBot" . base64_encode($botId) . " -Q select . ; echo $?")) != '0') {
 					printJson('warning', 'Proba wylaczenia bota id ' . $botId . ' nie powiodla sie (Bot jest juz wylaczony)');
 				} else {
-					shell_exec("sudo screen -S TS3AudioBot" . $botId . " -p 0 -X stuff ^C");
+					shell_exec("sudo screen -S TS3AudioBot" . base64_encode($botId) . " -p 0 -X stuff ^C");
 					printJson('success', 'Wylaczono bota o id ' . $botId . '!');
 				}
 			} else {
@@ -107,7 +99,7 @@
 			foreach ($bots as $bot) {
 				$status = 'Wyłączony';
 				$color = '#ffbcb7';
-				if (preg_replace('/\D/', '', shell_exec("sudo screen -S TS3AudioBot" . $bot['id'] . " -Q select . ; echo $?")) == '0') {
+				if (preg_replace('/\D/', '', shell_exec("sudo screen -S TS3AudioBot" . base64_encode($bot['id']) . " -Q select . ; echo $?")) == '0') {
 					$status = 'Właczony';
 					$color = '#baffb2';
 				}

@@ -8,19 +8,15 @@
 			if ($result->rowCount() != 0) {
 				$_SESSION['user_online'] = true;
 				$_SESSION['user_name'] = $login;
-				$_SESSION['user_password'] = md5($password);
 				$_SESSION['alert'] = array('message' => 'Zalogowano pomyślnie!', 'type' => 'success');
-				header('Location: ?dashboard');
-				exit();
+				exit(header('Location: ?dashboard'));
 			} else {
 				$_SESSION['alert'] = array('message' => 'Błędny login lub hasło!', 'type' => 'danger');
-				header('Location: ?login');
-				exit();
+				exit(header('Location: ?login'));
 			}
 		} else {
 			$_SESSION['alert'] = array('message' => 'Wpisz login oraz hasło!', 'type' => 'danger');
-			header('Location: ?login');
-			exit();
+			exit(header('Location: ?login'));
 		}
 	} else {
 		$dashboard->getMySQL($config, true);

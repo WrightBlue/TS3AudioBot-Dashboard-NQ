@@ -17,7 +17,7 @@
 			}
 			return $db;
 		}
-		
+
 		function getOptionList($config)
 		{
 			$bots = self::getMySQL($config)->query("SELECT * FROM `dashboard_bots`");
@@ -25,8 +25,7 @@
 			foreach ($bots as $bot) {
 				$listCreated[] = $bot['id'];
 			}
-			$result = array();
-			$result .= '<option selected disabled>[!] Id bota</option>';
+			$result = '<option selected disabled>[!] Id bota</option>';
 			for ($i = 1; $i <= 128; $i++) {
 				if (!in_array($i, $listCreated)) {
 					$result .= '<option value="' . $i . '">' . $i . '</option>';
