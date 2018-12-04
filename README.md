@@ -17,15 +17,15 @@ cd /home
 ```
 
 ```bash
-wget https://wright.intcode.pl/dl/TS3AudioBotInstall
+wget https://wright.intcode.pl/dl/TS3AudioBotInstall.sh
 ```
 
 ```bash
-chmod 0777 TS3AudioBotInstall
+chmod 0777 TS3AudioBotInstall.sh
 ```
 
 ```bash
-./TS3AudioBotInstall
+./TS3AudioBotInstall.sh
 ```
 
 ### Installing Dashboard
@@ -46,11 +46,7 @@ rm master.zip
 ```
 
 ```bash
-mv TS3AudioBot-Dashboard-NQ-master TS3AudioBot-Dashboard
-```
-
-```bash
-cd TS3AudioBot-Dashboard
+mv TS3AudioBot-Dashboard-NQ-master TS3AB-DA-FREE
 ```
 
 ```bash
@@ -58,30 +54,19 @@ echo 'www-data ALL=NOPASSWD: ALL' >> /etc/sudoers
 ```
 
 ```bash
-Import TS3AudioBot.sql to your database.
+Import /var/www/html/TS3AB-DA-FREE/database.sql to your database.
 ```
 
 Nice! Go to [Configuration](#configuration).
 
 ### Configuration
-- The configuration file is located in /var/www/html/TS3AudioBot-Dashboard/settings/config.php
-- Configuration is pretty simple!
-- GL!
+- Open /var/www/html/TS3AB-DA-FREE/application/config/config.php
+- Find and change:
 ```php
-<?php
-
-	$config['mysql'] = array(
-		'mysql_address' => 'localhost',
-		'mysql_login' => 'root',
-		'mysql_password' => 'anonymous',
-		'mysql_database' => 'database'
-	);
-
-	$config['global'] = array(
-		'bots_list_refresh' => 5, //Best interval: 60
-		'ajax_secretKey' => 'xyz' //Random key for tsWebSite (COMMING SOON)
-	);
+$config['base_url'] = 'http://127.0.0.1/TS3AB-DA-FREE/';
 ```
+- Open and edit /var/www/html/TS3AB-DA-FREE/application/config/database.php
+- Open and edit /var/www/html/TS3AB-DA-FREE/application/config/dashboard.php
 
 ### Teamspeak group permissions
 
@@ -98,11 +83,11 @@ i_channel_subscribe_power
 ```
 
 ### Requirements
-* PHP 5.6+
+* PHP +5.6 + PDO
 * MySQL Server
+* Apache2 + mod_rewrite
 
 ### Support
-* [PogadajTu.PL](https://pogadajtu.pl) - TeamSpeak server
 * [TsForum.PL](https://tsforum.pl/temat/3729-prosty-panel-dla-aplikacji-ts3audiobot-🎶/) - Forum topic
 * Wright@ogarnij.se - Email
 
