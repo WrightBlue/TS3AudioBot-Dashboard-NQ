@@ -113,7 +113,7 @@ QueryConnection::CustomDisconnectMessage=Polski Support TeamSpeak - tsforum.pl';
         return $this->output->set_output(printJson(true, 'Stworzono bota!'));
     }
 
-    public function list()
+    public function bots()
     {
         $this->output->set_content_type('application/json')->set_status_header(200);
         if (!$this->session->userdata('logged')) {

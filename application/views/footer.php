@@ -53,7 +53,7 @@
     <?php elseif ($this->uri->segment(1) == 'dash'): ?>
     function updateData() {
         $.ajax({
-            url: "<?= base_url('api/bot/list'); ?>",
+            url: "<?= base_url('api/bot/bots'); ?>",
             type: 'GET',
             success: function (result) {
                 var tr = '';
