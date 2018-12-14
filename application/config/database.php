@@ -74,23 +74,23 @@ $active_group = 'default';
 $query_builder = TRUE;
 
 $db['default'] = array(
-    'dsn'	=> '',
-    'hostname' => 'mysql:host=127.0.0.1;dbname=TS3AB-DA-FREE', //host oraz nazwe bazy danych
-    'username' => 'root', //login do bazy danych
-    'password' => 'password', //haslo do bazy dany
-    'database' => '',
-    'dbdriver' => 'pdo',
-    'dbprefix' => '',
-    'pconnect' => FALSE,
-    'db_debug' => FALSE,
-    'cache_on' => FALSE,
-    'cachedir' => '',
-    'char_set' => 'utf8',
-    'dbcollat' => 'utf8_general_ci',
-    'swap_pre' => '',
-    'encrypt' => FALSE,
-    'compress' => FALSE,
-    'stricton' => FALSE,
-    'failover' => array(),
-    'save_queries' => TRUE
+    'dsn'	=> '', //nie ruszaj tego
+    'hostname' => 'mysql:host=127.0.0.1;dbname=TS3AB-DA-FREE', //IP ORAZ NAZWE BAZY DANYCH
+    'username' => 'root', //LOGIN DO BAZY DANYCH
+    'password' => 'password', //HASLO DO BAZY DANYCH
+    'database' => '', //nie ruszaj tego
+    'dbdriver' => 'pdo', //nie ruszaj tego
+    'dbprefix' => '', //nie ruszaj tego
+    'pconnect' => FALSE, //nie ruszaj tego
+    'db_debug' => FALSE, //nie ruszaj tego
+    'cache_on' => FALSE, //nie ruszaj tego
+    'cachedir' => '', //nie ruszaj tego
+    'char_set' => 'utf8', //nie ruszaj tego
+    'dbcollat' => 'utf8_general_ci', //nie ruszaj tego
+    'swap_pre' => '', //nie ruszaj tego
+    'encrypt' => FALSE, //nie ruszaj tego
+    'compress' => FALSE, //nie ruszaj tego
+    'stricton' => FALSE, //nie ruszaj tego
+    'failover' => array(), //nie ruszaj tego
+    'save_queries' => TRUE //nie ruszaj tego
 );
