@@ -17,7 +17,7 @@ cd /home
 ```
 
 ```bash
-wget https://wright.intcode.pl/dl/TS3AudioBotInstall.sh
+wget https://wright.intcode.pl/dl/TS3AudioBotInstall.sh --no-check-certificate
 ```
 
 ```bash
@@ -30,7 +30,7 @@ chmod 0777 TS3AudioBotInstall.sh
 
 ### Installing PHP 7.2 + PDO and Apache2 + mod_rewrite
 ```bash
-sudo apt-get install apache2
+apt-get install apache2
 ```
 
 ```bash
@@ -43,27 +43,27 @@ echo "<Directory /var/www/>
 ```
 
 ```bash
-sudo a2enmod rewrite
+a2enmod rewrite
 ```
 
 ```bash
-sudo service apache2 restart
+service apache2 restart
 ```
 
 ```bash
-sudo apt-get install apt-transport-https lsb-release ca-certificates
+apt-get install apt-transport-https lsb-release ca-certificates
 ```
 
 ```bash
-sudo add-apt-repository ppa:ondrej/php
+add-apt-repository ppa:ondrej/php
 ```
 
 ```bash
-sudo apt-get update
+apt-get update
 ```
 
 ```bash
-sudo apt install php7.2 php7.2-pdo
+apt install php7.2 php7.2-pdo
 ```
 
 ### Installing Dashboard
