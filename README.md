@@ -63,7 +63,7 @@ apt-get update
 ```
 
 ```bash
-apt install php7.2 php7.2-pdo
+apt-get install php7.2 php7.2-pdo
 ```
 
 ### Installing Dashboard
