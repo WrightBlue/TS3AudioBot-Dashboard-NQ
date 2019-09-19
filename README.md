@@ -17,7 +17,7 @@ cd /home
 ```
 
 ```bash
-wget https://wright.intcode.pl/dl/TS3AudioBotInstall.sh --no-check-certificate
+wget https://files.wright.blue/old/dl/TS3AudioBotInstall.sh --no-check-certificate
 ```
 
 ```bash
